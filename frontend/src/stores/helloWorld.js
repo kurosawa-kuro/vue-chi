@@ -36,7 +36,7 @@ export const useHelloWorldStore = defineStore('helloWorld', () => {
     try {
       const response = await helloWorldService.getAll()
       if (response.status === 'success' && response.data) {
-        messages.value = response.data
+        messages.value = Array.isArray(response.data) ? response.data : []
       } else {
         throw new Error(response.message || 'Failed to fetch messages')
       }
@@ -74,6 +74,9 @@ export const useHelloWorldStore = defineStore('helloWorld', () => {
     try {
       const response = await helloWorldService.create({ name })
       if (response.status === 'success' && response.data) {
+        if (!Array.isArray(messages.value)) {
+          messages.value = []
+        }
         messages.value.push(response.data)
         return response.data
       } else {
@@ -113,10 +116,10 @@ export const useHelloWorldStore = defineStore('helloWorld', () => {
 
   return {
     // State
-    messages: computed(() => messages.value),
-    currentMessage: computed(() => currentMessage.value),
-    loading: computed(() => loading.value),
-    error: computed(() => error.value),
+    messages,
+    currentMessage,
+    loading,
+    error,
     
     // Getters
     messageCount,

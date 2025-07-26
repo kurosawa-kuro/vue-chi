@@ -36,7 +36,7 @@ export const helloWorldService = {
   // 全件取得
   async getAll() {
     try {
-      const { data } = await apiClient.get(API_ENDPOINTS.HELLO_WORLD)
+      const { data } = await apiClient.get(API_ENDPOINTS.HELLO_WORLD_MESSAGES)
       return data
     } catch (error) {
       return handleServiceError(error, 'get all messages')

@@ -1,6 +1,7 @@
 // API エンドポイント
 export const API_ENDPOINTS = {
   HELLO_WORLD: '/hello-world',
+  HELLO_WORLD_MESSAGES: '/hello-world/messages',
   HEALTH: '/health',
   AUTH: {
     LOGIN: '/auth/login',
