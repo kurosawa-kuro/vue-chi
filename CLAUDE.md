@@ -77,6 +77,9 @@ npm run preview            # Preview production build
 npm run test               # Run unit tests with Vitest
 npm run test:ui            # Run tests with UI
 npm run test:coverage      # Run tests with coverage report
+npm run test:e2e           # Run E2E tests (frontend-only with MSW)
+npm run test:e2e:backend   # Run E2E tests with real backend
+npm run test:e2e:ui        # Run E2E tests with Playwright UI
 ```
 
 ### Architecture Overview
@@ -85,7 +88,7 @@ npm run test:coverage      # Run tests with coverage report
 - **State Management**: Pinia stores
 - **Routing**: Vue Router
 - **Styling**: Tailwind CSS
-- **Testing**: Vitest + Vue Testing Library + MSW for mocking
+- **Testing**: Vitest + Vue Testing Library + MSW for mocking + Playwright for E2E
 - **Build Tool**: Vite
 
 **Key Directories:**
@@ -96,6 +99,7 @@ npm run test:coverage      # Run tests with coverage report
 - `src/pages/` - Page components
 - `src/router/` - Route definitions
 - `src/tests/` - Test setup and integration tests
+- `tests/e2e/` - Playwright E2E tests
 
 ### Mock Service Worker (MSW)
 
@@ -128,11 +132,18 @@ This is a Nuxt 3 admin dashboard template with TypeScript and UI components.
 ## Testing Strategy
 
 - **Backend**: Uses Go testing frameworks (testify, httpexpect, apitest)
-- **Frontend**: Uses Vitest + Vue Testing Library with MSW for API mocking
+- **Frontend Unit**: Uses Vitest + Vue Testing Library with MSW for API mocking
+- **E2E Frontend-only**: Uses Playwright + MSW for isolated UI testing (default)
+- **E2E Full-stack**: Uses Playwright with real backend for integration testing
 - **Integration**: Tests should cover API endpoints and component interactions
+
+### E2E Testing Modes
+1. **Frontend-only** (default): Fast UI testing with MSW mocks - no backend required
+2. **Full-stack**: Complete integration testing with real backend + database
 
 ## Important Notes
 
+- **CRITICAL**: Vue frontend has NO backend server functionality - it's a pure SPA
 - Backend runs on port 8080, PostgreSQL on 15432 (to avoid WSL conflicts)
 - Frontend proxy configuration handles CORS in development
 - Always run commands from the appropriate subdirectory (backend/ or frontend/)

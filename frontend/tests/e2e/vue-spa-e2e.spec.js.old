@@ -27,9 +27,9 @@ test.describe('Vue SPA E2E Test Page', () => {
     
     // Check main sections are present
     await expect(page.locator('h1')).toContainText('フロントエンド→バックエンド E2E テスト');
-    await expect(page.locator('text=APIヘルスチェック')).toBeVisible();
-    await expect(page.locator('text=POSTリクエストテスト')).toBeVisible();
-    await expect(page.locator('text=GETリクエストテスト')).toBeVisible();
+    await expect(page.locator('text=API ヘルスチェック')).toBeVisible();
+    await expect(page.locator('text=POST リクエストテスト')).toBeVisible();
+    await expect(page.locator('text=GET リクエストテスト')).toBeVisible();
     await expect(page.locator('text=バリデーションエラーテスト')).toBeVisible();
   });
 

@@ -1,5 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
 
+/**
+ * Playwright E2E Configuration
+ * 
+ * Two execution modes:
+ * 1. Local Development (default): Uses MSW mocks for isolated frontend testing
+ * 2. Full-stack Testing: Uses real backend when E2E_WITH_BACKEND=true
+ */
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -24,15 +31,15 @@ export default defineConfig({
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-    // Skip webkit in non-Docker environments due to missing dependencies
     ...(process.env.CI ? [{
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     }] : []),
   ],
 
-  webServer: process.env.CI ? undefined : {
-    command: 'npm run dev',
+  // Frontend-only testing with MSW (default)
+  webServer: process.env.E2E_WITH_BACKEND === 'true' ? undefined : {
+    command: 'VITE_ENABLE_MSW=true npm run dev',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
   },
