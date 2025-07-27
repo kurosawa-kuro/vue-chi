@@ -28,13 +28,6 @@ echo -e "${YELLOW}🗑️  Removing Docker images...${NC}"
 docker rmi vue-chi-backend:staging 2>/dev/null || echo -e "${YELLOW}⚠️  Backend image not found${NC}"
 docker rmi vue-chi-frontend:staging 2>/dev/null || echo -e "${YELLOW}⚠️  Frontend image not found${NC}"
 
-# Remove hosts entry
-echo -e "${YELLOW}🗑️  Removing hosts entry...${NC}"
-if grep -q "vue-chi-staging.local" /etc/hosts; then
-    sudo sed -i '/vue-chi-staging.local/d' /etc/hosts
-    echo -e "${GREEN}✅ Removed vue-chi-staging.local from /etc/hosts${NC}"
-else
-    echo -e "${YELLOW}⚠️  vue-chi-staging.local not found in /etc/hosts${NC}"
-fi
+# Note: Hosts cleanup is now manual if needed
 
 echo -e "${GREEN}🎉 Cleanup completed successfully!${NC}"

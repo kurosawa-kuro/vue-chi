@@ -111,14 +111,7 @@ kubectl wait --for=condition=available --timeout=300s deployment/frontend-deploy
 
 echo -e "${GREEN}✅ All deployments are ready${NC}"
 
-# Add hosts entry
-echo -e "${YELLOW}🔧 Configuring local hosts...${NC}"
-if ! grep -q "vue-chi-staging.local" /etc/hosts; then
-    echo "127.0.0.1 vue-chi-staging.local" | sudo tee -a /etc/hosts
-    echo -e "${GREEN}✅ Added vue-chi-staging.local to /etc/hosts${NC}"
-else
-    echo -e "${YELLOW}⚠️  vue-chi-staging.local already exists in /etc/hosts${NC}"
-fi
+# Note: Hosts configuration is now manual - see README.md for instructions
 
 # Display status
 echo -e "${GREEN}🎉 Deployment completed successfully!${NC}"

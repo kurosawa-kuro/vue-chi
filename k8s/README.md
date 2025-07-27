@@ -62,7 +62,6 @@ cd /home/wsl/dev/my-study/vue-chi
 3. NGINX Ingress Controllerのインストール
 4. DockerイメージのビルドとKindクラスターへのロード
 5. Kubernetesマニフェストの適用
-6. hostsファイルの設定
 
 ### 2. アクセス
 
@@ -73,24 +72,11 @@ cd /home/wsl/dev/my-study/vue-chi
    kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 8080:80 &
    ```
 
-2. **hostsファイルの設定**
-   
-   **WSL環境の場合（Windowsブラウザからアクセスする場合）**:
-   ```powershell
-   # PowerShellを管理者として実行
-   Add-Content -Path C:\Windows\System32\drivers\etc\hosts -Value "127.0.0.1 vue-chi-staging.local"
-   ```
-   
-   **Linux環境の場合**:
-   ```bash
-   echo "127.0.0.1 vue-chi-staging.local" | sudo tee -a /etc/hosts
-   ```
-
-3. **アクセス**
+2. **アクセス**
    - **フロントエンド**: http://vue-chi-staging.local:8080
    - **バックエンドAPI**: http://vue-chi-staging.local:8080/api
 
-**注意**: `localhost:8080`ではアクセスできません。必ず`vue-chi-staging.local:8080`を使用してください。
+**注意**: Kubernetes Ingressを使用する場合は適切なDNS設定またはポートフォワーディングが必要です。
 
 ### 3. クリーンアップ
 
@@ -178,24 +164,6 @@ kubectl logs -f deployment/postgres-deployment -n vue-chi-staging
    # ポートフォワーディングが必要です
    kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 8080:80 &
    ```
-   
-   **WSL環境でWindowsブラウザを使用する場合**:
-   - Windowsの hosts ファイル (`C:\Windows\System32\drivers\etc\hosts`) に以下を追加:
-     ```
-     127.0.0.1 vue-chi-staging.local
-     ```
-   - PowerShell（管理者）で実行:
-     ```powershell
-     Add-Content -Path C:\Windows\System32\drivers\etc\hosts -Value "127.0.0.1 vue-chi-staging.local"
-     ```
-   
-   **Linux環境の場合**:
-   ```bash
-   # hostsファイルエントリが正しいか確認
-   grep vue-chi-staging.local /etc/hosts
-   ```
-   
-   **重要**: `vue-chi-staging.local:8080` でアクセス（localhost:8080ではない）
 
 2. **ポート競合**
    ```bash

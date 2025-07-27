@@ -148,3 +148,4 @@ This is a Nuxt 3 admin dashboard template with TypeScript and UI components.
 - Frontend proxy configuration handles CORS in development
 - Always run commands from the appropriate subdirectory (backend/ or frontend/)
 - Use Docker for consistent development environment, especially for database
+- **HOSTS RESTRICTION**: Hosts file modification is absolutely prohibited until explicitly commanded by authorized personnel
