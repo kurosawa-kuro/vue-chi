@@ -74,15 +74,25 @@ echo -e "${YELLOW}🔨 Building Docker images...${NC}"
 
 # Build backend image
 echo -e "${BLUE}Building backend image...${NC}"
-cd backend
-docker build -f docker/Dockerfile -t "$BACKEND_IMAGE" .
-cd ..
+if [ -d "backend" ]; then
+    cd backend
+    docker build -f docker/Dockerfile -t "$BACKEND_IMAGE" .
+    cd ..
+else
+    echo -e "${RED}❌ Backend directory not found. Please run from project root.${NC}"
+    exit 1
+fi
 
 # Build frontend image
 echo -e "${BLUE}Building frontend image...${NC}"
-cd frontend
-docker build -f docker/Dockerfile -t "$FRONTEND_IMAGE" .
-cd ..
+if [ -d "frontend" ]; then
+    cd frontend
+    docker build -f docker/Dockerfile -t "$FRONTEND_IMAGE" .
+    cd ..
+else
+    echo -e "${RED}❌ Frontend directory not found. Please run from project root.${NC}"
+    exit 1
+fi
 
 # Load images into Kind cluster
 echo -e "${YELLOW}📦 Loading images into Kind cluster...${NC}"
@@ -120,9 +130,10 @@ echo -e "${BLUE}📊 Cluster Information:${NC}"
 echo "  Cluster Name: $CLUSTER_NAME"
 echo "  Namespace: $NAMESPACE"
 echo ""
-echo -e "${BLUE}🌐 Access URLs:${NC}"
-echo "  Frontend: http://vue-chi-staging.local"
-echo "  Backend API: http://vue-chi-staging.local/api"
+echo -e "${BLUE}🌐 Access URLs (after port forwarding):${NC}"
+echo "  Port forward: kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 8080:80 &"
+echo "  Frontend: http://localhost:8080 (Host: vue-chi-staging.local)"
+echo "  Backend API: http://localhost:8080/api (Host: vue-chi-staging.local)"
 echo ""
 echo -e "${BLUE}📋 Useful Commands:${NC}"
 echo "  Check pods: kubectl get pods -n $NAMESPACE"
