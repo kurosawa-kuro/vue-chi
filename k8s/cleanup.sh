@@ -25,8 +25,17 @@ fi
 
 # Remove Docker images
 echo -e "${YELLOW}🗑️  Removing Docker images...${NC}"
-docker rmi vue-chi-backend:staging 2>/dev/null || echo -e "${YELLOW}⚠️  Backend image not found${NC}"
-docker rmi vue-chi-frontend:staging 2>/dev/null || echo -e "${YELLOW}⚠️  Frontend image not found${NC}"
+if docker images -q vue-chi-backend:staging >/dev/null 2>&1; then
+    docker rmi vue-chi-backend:staging && echo -e "${GREEN}✅ Backend image removed${NC}"
+else
+    echo -e "${YELLOW}⚠️  Backend image not found${NC}"
+fi
+
+if docker images -q vue-chi-frontend:staging >/dev/null 2>&1; then
+    docker rmi vue-chi-frontend:staging && echo -e "${GREEN}✅ Frontend image removed${NC}"
+else
+    echo -e "${YELLOW}⚠️  Frontend image not found${NC}"
+fi
 
 # Note: Hosts cleanup is now manual if needed
 

@@ -51,7 +51,7 @@ k8s/
 
 ```bash
 # プロジェクトルートから実行
-cd /home/wsl/dev/my-study/vue-chi
+cd /path/to/vue-chi
 ./k8s/deploy.sh
 ```
 
@@ -73,8 +73,10 @@ cd /home/wsl/dev/my-study/vue-chi
    ```
 
 2. **アクセス**
-   - **フロントエンド**: http://vue-chi-staging.local:8080
-   - **バックエンドAPI**: http://vue-chi-staging.local:8080/api
+   - **フロントエンド**: http://localhost:8080 (Host: vue-chi-staging.local)
+   - **バックエンドAPI**: http://localhost:8080/api (Host: vue-chi-staging.local)
+   
+   **注意**: curlでテストする場合は `-H "Host: vue-chi-staging.local"` ヘッダーが必要です。
 
 **注意**: Kubernetes Ingressを使用する場合は適切なDNS設定またはポートフォワーディングが必要です。
 
