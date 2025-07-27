@@ -26,16 +26,58 @@ command_exists() {
 # Check prerequisites
 echo -e "${YELLOW}📋 Checking prerequisites...${NC}"
 
+# Function to install kind
+install_kind() {
+    echo -e "${YELLOW}📦 Installing Kind...${NC}"
+    curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+    chmod +x ./kind
+    sudo mv ./kind /usr/local/bin/kind
+    if command_exists kind; then
+        echo -e "${GREEN}✅ Kind installed successfully${NC}"
+    else
+        echo -e "${RED}❌ Failed to install Kind${NC}"
+        exit 1
+    fi
+}
+
+# Function to install kubectl
+install_kubectl() {
+    echo -e "${YELLOW}📦 Installing kubectl...${NC}"
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    chmod +x kubectl
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    if command_exists kubectl; then
+        echo -e "${GREEN}✅ kubectl installed successfully${NC}"
+    else
+        echo -e "${RED}❌ Failed to install kubectl${NC}"
+        exit 1
+    fi
+}
+
 if ! command_exists kind; then
-    echo -e "${RED}❌ Kind is not installed. Please install Kind first.${NC}"
-    echo "Visit: https://kind.sigs.k8s.io/docs/user/quick-start/#installation"
-    exit 1
+    echo -e "${YELLOW}⚠️  Kind is not installed.${NC}"
+    read -p "Do you want to install Kind automatically? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        install_kind
+    else
+        echo -e "${RED}❌ Kind is required. Please install Kind first.${NC}"
+        echo "Visit: https://kind.sigs.k8s.io/docs/user/quick-start/#installation"
+        exit 1
+    fi
 fi
 
 if ! command_exists kubectl; then
-    echo -e "${RED}❌ kubectl is not installed. Please install kubectl first.${NC}"
-    echo "Visit: https://kubernetes.io/docs/tasks/tools/"
-    exit 1
+    echo -e "${YELLOW}⚠️  kubectl is not installed.${NC}"
+    read -p "Do you want to install kubectl automatically? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        install_kubectl
+    else
+        echo -e "${RED}❌ kubectl is required. Please install kubectl first.${NC}"
+        echo "Visit: https://kubernetes.io/docs/tasks/tools/"
+        exit 1
+    fi
 fi
 
 if ! command_exists docker; then
@@ -143,3 +185,4 @@ echo "  View logs: kubectl logs -f deployment/backend-deployment -n $NAMESPACE"
 echo "  Delete cluster: kind delete cluster --name $CLUSTER_NAME"
 echo ""
 echo -e "${YELLOW}⚠️  Note: Make sure port 80 and 443 are available on your system${NC}"
+echo -e "${BLUE}💡 Tip: Missing tools (kind/kubectl) can be auto-installed when prompted${NC}"
