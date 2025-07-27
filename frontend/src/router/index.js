@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/pages/HomePage.vue'
 import HelloWorldPage from '@/pages/HelloWorldPage.vue'
+import E2ETest from '@/components/E2ETest.vue'
 import NotFoundPage from '@/pages/NotFoundPage.vue'
 
 const routes = [
@@ -15,6 +16,12 @@ const routes = [
     name: 'HelloWorld',
     component: HelloWorldPage,
     meta: { title: 'Hello World' }
+  },
+  {
+    path: '/e2e-test',
+    name: 'E2ETest',
+    component: E2ETest,
+    meta: { title: 'E2E Test' }
   },
   {
     path: '/:pathMatch(.*)*',

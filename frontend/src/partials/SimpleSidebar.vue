@@ -65,6 +65,17 @@
                 </div>
               </router-link>
             </li>
+            <!-- E2E Test -->
+            <li class="px-3 py-2 rounded-lg mb-0.5 last:mb-0" :class="currentRoute.fullPath === '/e2e-test' && 'bg-violet-500'">
+              <router-link class="block text-gray-800 dark:text-gray-100 truncate transition" :class="currentRoute.fullPath === '/e2e-test' ? 'text-white' : 'hover:text-gray-900 dark:hover:text-white'" to="/e2e-test">
+                <div class="flex items-center">
+                  <svg class="shrink-0 fill-current mr-3" :class="currentRoute.fullPath === '/e2e-test' ? 'text-violet-200' : 'text-gray-400 dark:text-gray-500'" width="16" height="16" viewBox="0 0 16 16">
+                    <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM3.05 6.05a.75.75 0 1 1 1.06-1.06L6.94 7.94a.75.75 0 0 1 0 1.06L4.11 11.83a.75.75 0 1 1-1.06-1.06L5.88 8 3.05 6.05ZM8 13a.75.75 0 0 1 0-1.5h2a.75.75 0 0 1 0 1.5H8Z" />
+                  </svg>
+                  <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">E2E Test</span>
+                </div>
+              </router-link>
+            </li>
           </ul>
         </div>
       </div>
