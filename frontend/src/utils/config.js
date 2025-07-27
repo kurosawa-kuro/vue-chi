@@ -13,7 +13,7 @@ const getDefaultApiBaseUrl = () => {
   if (import.meta.env.DEV) {
     return '/api'
   }
-  return 'http://localhost:8080/api'
+  return '/api' // 本番環境でも同一オリジンのAPIパスを使用
 }
 
 // 設定管理
