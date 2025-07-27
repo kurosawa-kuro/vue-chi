@@ -1,18 +1,6 @@
 # Makefile.docker - Docker関連
 
-.PHONY: docker docker-bg docker-down swagger
-
-docker:
-	@echo "🐳 Docker Composeで起動中..."
-	docker compose -f docker/docker-compose.yml up --build
-
-docker-bg:
-	@echo "🐳 Docker Composeでバックグラウンド起動中..."
-	docker compose -f docker/docker-compose.yml up -d --build
-
-docker-down:
-	@echo "🐳 Docker Composeで停止中..."
-	docker compose -f docker/docker-compose.yml down
+.PHONY: swagger
 
 swagger:
 	@echo "📖 Swaggerドキュメントを生成中..."

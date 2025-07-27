@@ -1,0 +1,38 @@
+# Makefile.docker - 共通Docker操作
+
+DOCKER_COMPOSE_FILE := $(SHARED_DIR)/docker/docker-compose.yml
+
+.PHONY: docker docker-bg docker-down docker-frontend docker-backend docker-logs docker-ps docker-clean
+
+docker:
+	@echo "🐳 Docker Composeで全サービス起動中..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) up --build
+
+docker-bg:
+	@echo "🐳 Docker Composeでバックグラウンド起動中..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
+
+docker-down:
+	@echo "🐳 Docker Composeで停止中..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
+
+docker-frontend:
+	@echo "🎨 フロントエンドコンテナのみ起動中..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) up --build frontend
+
+docker-backend:
+	@echo "⚙️  バックエンドコンテナのみ起動中..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) up --build backend db
+
+docker-logs:
+	@echo "📋 Docker Composeのログを表示中..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) logs -f
+
+docker-ps:
+	@echo "📊 実行中のコンテナ一覧..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) ps
+
+docker-clean:
+	@echo "🧹 Dockerのクリーンアップ中..."
+	docker compose -f $(DOCKER_COMPOSE_FILE) down -v --remove-orphans
+	docker system prune -f
