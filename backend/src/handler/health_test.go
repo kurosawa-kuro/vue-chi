@@ -1,13 +1,13 @@
 package handler
 
 import (
-	"database/sql"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"backend/models"
+	"backend/test/testutils"
 )
 
 // TestNewHealthHandler ヘルスチェックハンドラー作成のテスト
@@ -22,7 +22,7 @@ func TestNewHealthHandler(t *testing.T) {
 	}
 
 	// 実際のDBでのテスト（統合テスト）
-	db := setupTestDB(t)
+	db := testutils.SetupTestDB(t)
 	defer db.Close()
 
 	handlerWithDB := NewHealthHandler(db)
@@ -70,7 +70,7 @@ func TestHealthCheckHandler(t *testing.T) {
 // TestHealthCheckHandlerWithDatabase データベースありでのヘルスチェックテスト
 func TestHealthCheckHandlerWithDatabase(t *testing.T) {
 	// 統合テストとして実行
-	db := setupTestDB(t)
+	db := testutils.SetupTestDB(t)
 	defer db.Close()
 
 	handler := NewHealthHandler(db)

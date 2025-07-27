@@ -3,36 +3,17 @@ package handler
 import (
 	"bytes"
 	"context"
-	"database/sql"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"testing"
-	"time"
 
 	"github.com/go-chi/chi/v5"
-	_ "github.com/lib/pq"
 	"backend/models"
+	"backend/test/testutils"
 )
 
-// setupTestDB テスト用DB接続を設定
-func setupTestDB(t *testing.T) *sql.DB {
-	dsn := "host=localhost port=15434 user=sampleuser password=samplepass dbname=sampledb_test sslmode=disable"
-	db, err := sql.Open("postgres", dsn)
-	if err != nil {
-		t.Fatalf("DB接続失敗: %v", err)
-	}
-	// DB起動待ち
-	for i := 0; i < 10; i++ {
-		if err := db.Ping(); err == nil {
-			return db
-		}
-		time.Sleep(1 * time.Second)
-	}
-	t.Fatal("DB起動待ちタイムアウト")
-	return nil
-}
 
 // MockHelloWorldService モックサービス構造体
 type MockHelloWorldService struct {
@@ -216,7 +197,7 @@ func TestCreateHelloWorldHandlerWithDatabase(t *testing.T) {
 // TestGetHelloWorldMessagesHandler Hello Worldメッセージ一覧取得ハンドラーのテスト
 func TestGetHelloWorldMessagesHandler(t *testing.T) {
 	// 統合テストとして実行
-	db := setupTestDB(t)
+	db := testutils.SetupTestDB(t)
 	defer db.Close()
 	
 	handler := NewHelloWorldHandler(db)
@@ -259,7 +240,7 @@ func TestGetHelloWorldMessagesHandler(t *testing.T) {
 // TestGetHelloWorldMessageByIDHandler IDでHello Worldメッセージ取得ハンドラーのテスト
 func TestGetHelloWorldMessageByIDHandler(t *testing.T) {
 	// 統合テストとして実行
-	db := setupTestDB(t)
+	db := testutils.SetupTestDB(t)
 	defer db.Close()
 	
 	handler := NewHelloWorldHandler(db)

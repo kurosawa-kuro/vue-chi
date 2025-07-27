@@ -1,10 +1,10 @@
 package services
 
 import (
-	"database/sql"
 	"testing"
 
 	"backend/models"
+	"backend/test/testutils"
 )
 
 // MockDatabase モックデータベース構造体
@@ -116,7 +116,7 @@ func TestCreateHelloWorldWithDatabase(t *testing.T) {
 // TestGetHelloWorldMessages Hello Worldメッセージ一覧取得のテスト
 func TestGetHelloWorldMessages(t *testing.T) {
 	// 統合テストとして実行
-	db := setupTestDB(t)
+	db := testutils.SetupTestDB(t)
 	defer db.Close()
 	
 	service := NewHelloWorldService(db)
@@ -155,7 +155,7 @@ func TestGetHelloWorldMessages(t *testing.T) {
 // TestGetHelloWorldMessageByID IDでHello Worldメッセージ取得のテスト
 func TestGetHelloWorldMessageByID(t *testing.T) {
 	// 統合テストとして実行
-	db := setupTestDB(t)
+	db := testutils.SetupTestDB(t)
 	defer db.Close()
 	
 	service := NewHelloWorldService(db)

@@ -1,34 +1,15 @@
 package services
 
 import (
-	"database/sql"
 	"testing"
-	"time"
 
 	"backend/models"
-
-	_ "github.com/lib/pq"
+	"backend/test/testutils"
 )
 
-func setupTestDB(t *testing.T) *sql.DB {
-	dsn := "host=localhost port=15434 user=sampleuser password=samplepass dbname=sampledb_test sslmode=disable"
-	db, err := sql.Open("postgres", dsn)
-	if err != nil {
-		t.Fatalf("DB接続失敗: %v", err)
-	}
-	// DB起動待ち
-	for i := 0; i < 10; i++ {
-		if err := db.Ping(); err == nil {
-			return db
-		}
-		time.Sleep(1 * time.Second)
-	}
-	t.Fatal("DB起動待ちタイムアウト")
-	return nil
-}
 
 func TestCreateAndGetHelloWorldIntegration(t *testing.T) {
-	db := setupTestDB(t)
+	db := testutils.SetupTestDB(t)
 	defer db.Close()
 
 	service := NewHelloWorldService(db)
