@@ -1,0 +1,32 @@
+/* Flatpickr Calendar Styles */
+.flatpickr-calendar {
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.flatpickr-calendar.dark {
+  background: #374151;
+  border-color: #4b5563;
+}
+
+.flatpickr-day {
+  @apply text-gray-700 hover:bg-gray-100;
+}
+
+.flatpickr-day.today {
+  @apply bg-violet-100 text-violet-600;
+}
+
+.flatpickr-day.selected {
+  @apply bg-violet-600 text-white;
+}
+
+.dark .flatpickr-day {
+  @apply text-gray-300 hover:bg-gray-600;
+}
+
+.dark .flatpickr-day.today {
+  @apply bg-violet-900 text-violet-300;
+}

@@ -47,7 +47,7 @@
 
 <script>
 import { useDropdown } from '@/composables/useDropdown'
-import UserAvatar from '../assets/images/user-avatar-32.png'
+import UserAvatar from '../assets/images/user-avatar-32.svg'
 
 export default {
   name: 'DropdownProfile',

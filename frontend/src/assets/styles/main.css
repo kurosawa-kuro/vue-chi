@@ -2,8 +2,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import './css/additional-styles/flatpickr.css';
-@import './css/additional-styles/utility-patterns.css';
+@import '../../css/additional-styles/flatpickr.css';
+@import '../../css/additional-styles/utility-patterns.css';
 
 @layer components {
   .btn {
