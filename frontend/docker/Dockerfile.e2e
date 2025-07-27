@@ -3,6 +3,10 @@ FROM mcr.microsoft.com/playwright:v1.54.1-jammy
 
 WORKDIR /app
 
+# Set environment variables for E2E testing
+ENV CI=true
+ENV PLAYWRIGHT_BASE_URL=http://e2e_frontend:5173
+
 # Install Node.js dependencies
 COPY package*.json ./
 RUN npm ci
@@ -10,9 +14,8 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Set environment variables for E2E testing
-ENV CI=true
-ENV PLAYWRIGHT_BASE_URL=http://frontend:5173
+# Create directories for reports
+RUN mkdir -p playwright-report test-results
 
 # Default command to run E2E tests
 CMD ["npm", "run", "test:e2e"]

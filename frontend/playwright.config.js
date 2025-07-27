@@ -12,6 +12,7 @@ export default defineConfig({
     baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:5173',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    ignoreHTTPSErrors: true,
   },
 
   projects: [
