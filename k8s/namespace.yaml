@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vue-chi-staging
+  labels:
+    environment: staging
+    project: vue-chi
