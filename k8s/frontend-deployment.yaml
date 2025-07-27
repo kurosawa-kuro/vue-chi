@@ -22,7 +22,7 @@ spec:
         - containerPort: 5173
         env:
         - name: VITE_API_BASE_URL
-          value: "http://backend-service:8080"
+          value: "/api"
         livenessProbe:
           httpGet:
             path: /
